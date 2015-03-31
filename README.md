@@ -1,3 +1,13 @@
+A fork of the CanarRaspberryJuice plugin, optimized for large cuboid
+editing and transfer.  This mod and python API should be able to
+transfer fairly large cuboids of data (with different types and data
+for each block in that cuboid without causing undue lag.
+
+Original README below..
+
+
+
+
 -------------------------------------------------------------------------------
 Raspberry Juice for Canarymod
 Martin O'Hanlon (martin@ohanlonweb.com)
