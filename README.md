@@ -1,7 +1,14 @@
 A fork of the CanarRaspberryJuice plugin, optimized for large cuboid
 editing and transfer.  This mod and python API should be able to
-transfer fairly large cuboids of data (with different types and data
-for each block in that cuboid without causing undue lag.
+transfer fairly large cuboids of data, with different types and data
+for each block in that cuboid, without causing undue lag.
+
+TODO:
+   * optimize server-> client cuboid transfer in the same way
+   * add support for numpy array sending & receiving
+   * Maybe: allow user to specify which of X,Y,Z to loop over when sending a block
+   * Not by me: update Java client to match new API
+   * Add Extra Features (see below)
 
 Original README below..
 
