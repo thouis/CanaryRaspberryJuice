@@ -120,15 +120,18 @@ public class RemoteSession {
 
         int processedCount = 0;
         // First, process any block updates, and include them in the command count
-        plugin.getLogman().warn("Need to process " + editQueue.size() + " edits.");
+        if (editQueue.size() > 0)
+            plugin.getLogman().info("" + editQueue.size() + " pending edits.");
 
         while ((processedCount < maxCommandsPerTick) && (editQueue.peek() != null)) {
             pendingEdit ed = editQueue.poll();
             Block block = ed.world.getBlockAt(ed.pos);
-            block.setTypeId(ed.blocktype);
-            block.setData(ed.data);
-            block.update();
-            processedCount++;
+            if ((block.getTypeId() != ed.blocktype) || (block.getData() != ed.data)) {
+                block.setTypeId(ed.blocktype);
+                block.setData(ed.data);
+                block.update();
+                processedCount++;  // only count this as a command if we actually changed something
+            }
         }
         
         // incoming commands are: argc method arg arg arg ...
@@ -143,7 +146,6 @@ public class RemoteSession {
             String methodname;
             try {
                 methodname = new String(inQueue.poll(), "US-ASCII");
-                plugin.getLogman().warn("Command read" + methodname);
             } catch (Exception e) {
                 plugin.getLogman().warn("Could not decode command");
                 running = false;
@@ -154,10 +156,6 @@ public class RemoteSession {
             byte[][] raw_args = new byte[argc - 1][];
             for (int i = 0; i < argc - 1; i++) {
                 raw_args[i] = inQueue.poll();
-                if (raw_args[i].length < 10)
-                    plugin.getLogman().warn("Command arg " + new String(raw_args[i]));
-                else
-                    plugin.getLogman().warn("Command arg (long)");
             }
             
             handleCommand(methodname, raw_args);
@@ -222,15 +220,10 @@ public class RemoteSession {
 
                 Location loc1 = parseRelativeBlockLocation(args[0], args[1], args[2]);
                 Location loc2 = parseRelativeBlockLocation(args[3], args[4], args[5]);
-                if (raw_args.length == 7)  {
-                    plugin.getLogman().warn("cuboid no data");
+                if (raw_args.length == 7)
                     setCuboid(loc1, loc2, raw_args[6], new byte[]{0});
-                }
                 else
-                    {
-                        plugin.getLogman().warn("cuboid  data");
                     setCuboid(loc1, loc2, raw_args[6], raw_args[7]);
-                    }
                 
                 
             // world.getPlayerIds

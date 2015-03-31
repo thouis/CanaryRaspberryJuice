@@ -177,7 +177,6 @@ class Minecraft:
         else:
             data = bytearray([0])
         self.conn.send_raw("world.setBlocks", *(pos_args + [block_id, data]))
-        print self.conn.lastSent
 
     def getHeight(self, *args):
         """Get the height of the world (x,z) => int"""
