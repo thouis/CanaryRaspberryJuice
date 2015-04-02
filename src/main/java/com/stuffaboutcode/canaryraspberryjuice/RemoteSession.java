@@ -41,7 +41,7 @@ public class RemoteSession {
 
     protected ArrayDeque<BlockRightClickHook> blocktHitQueue = new ArrayDeque<BlockRightClickHook>();
 
-    private int maxCommandsPerTick = 128 * 128;
+    private int maxCommandsPerTick = 1000;
 
     private boolean closed = false;
 
