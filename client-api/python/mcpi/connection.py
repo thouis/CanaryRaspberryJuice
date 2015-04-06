@@ -1,7 +1,7 @@
 import socket
 import select
 from struct import pack
-from .util import flatten
+from .util import flatten, basestring
 
 """ @author: Aron Nieminen, Mojang AB"""
 
@@ -35,6 +35,8 @@ class Connection:
         numargs = len(vals)
         self.socket.sendall(pack("B", numargs))
         for v in vals:
+            if isinstance(v, basestring):
+                v = v.encode('utf-8')
             self.socket.sendall(pack("!i", len(v)))
             self.socket.sendall(v)
         self.drain()
@@ -46,6 +48,8 @@ class Connection:
         numargs = len(vals)
         self.socket.sendall(pack("B", numargs))
         for v in vals:
+            if isinstance(v, basestring):
+                v = v.encode('utf-8')
             self.socket.sendall(pack("!i", len(v)))
             self.socket.sendall(v)
         self.drain()
