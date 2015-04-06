@@ -1,7 +1,7 @@
 import socket
 import select
 from struct import pack
-from .util import flatten_parameters_to_string, flatten
+from .util import flatten
 
 """ @author: Aron Nieminen, Mojang AB"""
 
@@ -25,7 +25,7 @@ class Connection:
             if not readable:
                 break
             data = self.socket.recv(1500)
-            e =  "Drained Data: <%s>\n"%data.strip()
+            e = "Drained Data: <%s>\n" % data.strip()
             if self.raise_on_drain:
                 raise IOError("Drained data: <{}>".format(e))
 
@@ -55,7 +55,7 @@ class Connection:
         """Receives data. Note that the trailing newline '\n' is trimmed"""
         s = self.socket.makefile("r").readline().rstrip("\n")
         if s == Connection.RequestFailed:
-            raise RequestError("%s failed"%self.lastSent.strip())
+            raise RequestError("%s failed" % self.lastSent.strip())
         return s
 
     def sendReceive(self, *data):

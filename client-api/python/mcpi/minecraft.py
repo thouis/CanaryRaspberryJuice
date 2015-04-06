@@ -17,7 +17,7 @@ import collections
      entityId, by injecting [] that flattens to nothing)
 
     @author: Aron Nieminen, Mojang AB
-    
+
     Updated to included additional functionality provided by RaspberryJuice:
     - getBlocks() : implemented
     - .create() : can now accept "name" (player name) for use in multiplayer
@@ -88,16 +88,22 @@ class CmdPlayer(CmdPositioner):
 
     def getPos(self):
         return CmdPositioner.getPos(self, self.name)
+
     def setPos(self, *args):
         return CmdPositioner.setPos(self, self.name, args)
+
     def getTilePos(self):
         return CmdPositioner.getTilePos(self, self.name)
+
     def setTilePos(self, *args):
         return CmdPositioner.setTilePos(self, self.name, args)
+
     def getDirection(self):
         return CmdPositioner.getDirection(self, self.name)
+
     def getRotation(self):
         return CmdPositioner.getRotation(self, self.name)
+
     def getPitch(self):
         return CmdPositioner.getPitch(self, self.name)
 
@@ -208,7 +214,7 @@ class Minecraft:
         self.conn.send("world.setting", setting, 1 if bool(status) else 0)
 
     @staticmethod
-    def create(address = "localhost", port = 4711, name = None):
+    def create(address="localhost", port=4711, name=None):
         return Minecraft(Connection(address, port), name)
 
 

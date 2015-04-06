@@ -1,8 +1,25 @@
 import collections
 
+# http://www.rfk.id.au/blog/entry/preparing-pyenchant-for-python-3/
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    str = str
+    unicode = str
+    bytes = bytes
+    basestring = (str, bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    str = str
+    unicode = unicode
+    bytes = str
+    basestring = basestring
+
 def flatten(l):
     for e in l:
-        if isinstance(e, collections.Iterable) and not (isinstance(e, basestring) or isinstance(e, bytearray)):
+        if isinstance(e, collections.Iterable) and not (isinstance(e, basestring) or
+                                                        isinstance(e, bytearray)):
             for ee in flatten(e):
                 yield ee
         else:

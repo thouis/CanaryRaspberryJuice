@@ -15,8 +15,8 @@ class BlockEvent:
             BlockEvent.HIT: "BlockEvent.HIT"
         }.get(self.type, "???")
 
-        return "BlockEvent(%s, %d, %d, %d, %d, %d)"%(
-            sType,self.pos.x,self.pos.y,self.pos.z,self.face,self.entityId);
+        return "BlockEvent(%s, %d, %d, %d, %d, %d)" % (
+            sType, self.pos.x, self.pos.y, self.pos.z, self.face, self.entityId)
 
     @staticmethod
     def Hit(x, y, z, face, entityId):
