@@ -1,7 +1,7 @@
 import socket
 import select
 from struct import pack
-from util import flatten_parameters_to_string, flatten
+from .util import flatten_parameters_to_string, flatten
 
 """ @author: Aron Nieminen, Mojang AB"""
 
